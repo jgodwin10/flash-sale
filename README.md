@@ -21,8 +21,8 @@
 ### **1️⃣ Clone the Repository**
 
 ```sh
-git clone https://github.com/jgodwin10/flash-sale-api.git
-cd flash-sale-api
+git clone https://github.com/jgodwin10/flash-sale.git
+cd flash-sale
 ```
 
 ### **2️⃣ Install Dependencies**
