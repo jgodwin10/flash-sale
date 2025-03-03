@@ -29,8 +29,6 @@ cd flash-sale
 
 ```sh
 npm install
-
-docker run --name redis -p 6379:6379 -d redis
 ```
 
 ### **3️⃣ Set Up Environment Variables (`.env`)**
