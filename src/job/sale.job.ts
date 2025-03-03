@@ -1,9 +1,7 @@
 import { schedule } from "node-cron";
-import productModel from "../models/product.model";
+import { productModel } from "../models";
 
-class SaleJob {
-	private SALE_RESET_DAY = 1; // Reset every 1st day of the month
-
+class SaleCronJob {
 	/** Automatically Reset Sale Stock */
 	public async resetSale() {
 		await productModel.updateMany({}, { stock: 200 });
@@ -19,4 +17,6 @@ class SaleJob {
 	}
 }
 
-export default new SaleJob();
+export const SaleJob = new SaleCronJob();
+
+export default SaleJob;

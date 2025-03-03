@@ -1,5 +1,5 @@
 import { z } from "zod";
-import Product from "../models/product.model";
+import { productModel } from "../models";
 
 class ProductClass {
 	private productSchema = z.object({
@@ -18,7 +18,7 @@ class ProductClass {
 
 		const { name, stock, saleStartTime, saleEndTime } = validatedData.data;
 
-		const product = await Product.create({
+		const product = await productModel.create({
 			name,
 			stock,
 			saleStartTime: new Date(saleStartTime),
@@ -29,18 +29,19 @@ class ProductClass {
 	}
 
 	public async getStockById(productId: string) {
-		const product = await Product.findById(productId);
+		const product = await productModel.findById(productId);
 		return product ? product : null;
 	}
 
 	public async getProduct() {
-		return await Product.find()
+		return await productModel
+			.find()
 			.sort({ saleStartTime: -1 }) // Newest sales first
 			.lean();
 	}
 
 	public async decrementStock(productId: string, quantity: number): Promise<boolean> {
-		const product = await Product.findById(productId);
+		const product = await productModel.findById(productId);
 		if (!product || product.stock < quantity) return false;
 
 		product.stock -= quantity;

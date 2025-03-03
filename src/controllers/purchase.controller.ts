@@ -2,7 +2,7 @@ import { Response } from "express";
 import PurchaseQueue from "../queues/purchase.queue";
 import { AuthenticatedRequest } from "../middlewares/auth.middleware";
 
-class PurchaseController {
+class PurchaseClass {
 	public async makePurchase(req: AuthenticatedRequest, res: Response) {
 		const { id: userId } = req.user;
 		const { productId, quantity } = req.body;
@@ -19,4 +19,5 @@ class PurchaseController {
 	}
 }
 
-export default new PurchaseController();
+export const PurchaseController = new PurchaseClass();
+export default PurchaseController;

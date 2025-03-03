@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import LeaderboardService from "../services/leaderBoard.service";
+import { LeaderboardService } from "../services";
 
 class LeaderboardController {
-	/** ✅ Get leaderboard */
+	/** Get leaderboard */
 	public async getLeaderboard(req: Request, res: Response) {
 		const result = await LeaderboardService.getLeaderboard();
 

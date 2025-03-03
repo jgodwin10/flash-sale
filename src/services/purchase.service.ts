@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 import redisClient from "../config/redis";
-import productModel from "../models/product.model";
-import purchaseModel from "../models/purchase.model";
+import { productModel, purchaseModel } from "../models";
 
-class PurchaseService {
+class PurchaseClass {
 	private readonly MAX_QUANTITY_PER_USER = 5;
 
 	public async processPurchase(userId: string, productId: string, quantity: number) {
@@ -65,4 +64,6 @@ class PurchaseService {
 	}
 }
 
-export default new PurchaseService();
+export const PurchaseService = new PurchaseClass();
+
+export default PurchaseService;

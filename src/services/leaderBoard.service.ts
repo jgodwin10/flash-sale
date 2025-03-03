@@ -1,8 +1,8 @@
-import Purchase from "../models/purchase.model";
+import { purchaseModel } from "../models";
 
 class LeaderboardClass {
 	public async getLeaderboard() {
-		return Purchase.find().populate("userId", "name email").sort({ purchaseTime: 1 }).lean();
+		return purchaseModel.find().populate("userId", "name email").sort({ purchaseTime: 1 }).lean();
 	}
 }
 

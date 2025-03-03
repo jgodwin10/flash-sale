@@ -8,3 +8,4 @@ export const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://jacobgodwin281:
 export const JWT_SECRET = process.env.JWT_SECRET || "hellosecret";
 export const REDIS_URI = process.env.REDIS_URL || "redis://localhost:6379";
 export const NODE_ENV = process.env.NODE_ENV;
+export const REDIS_HOST = process.env.REDIS_HOST || "localhost";

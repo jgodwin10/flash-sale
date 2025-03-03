@@ -1,11 +1,12 @@
 import Queue from "bull";
-import purchaseService from "../services/purchase.service";
+import { PurchaseService } from "../services";
+import { REDIS_HOST, REDIS_PORT } from "../config/env";
 
 class PurchaseQueue {
 	private static queue = new Queue("purchaseQueue", {
 		redis: {
-			host: process.env.REDIS_HOST,
-			port: Number(process.env.REDIS_PORT),
+			host: REDIS_HOST,
+			port: REDIS_PORT,
 		},
 	});
 
@@ -16,24 +17,24 @@ class PurchaseQueue {
 				.then((job) => {
 					job
 						.finished()
-						.then((result) => resolve(result)) // ✅ Return final result when job is done
+						.then((result) => resolve(result)) //Return final result when job is done
 						.catch((error) => reject(error));
 				})
 				.catch((error) => reject(error));
 		});
 	}
 
-	/** ✅ Process queue jobs */
+	/** Process queue jobs */
 	public static processQueue() {
 		this.queue.process(async (job) => {
 			const { userId, productId, quantity } = job.data;
 			console.log(`Processing purchase: User ${userId} buying ${quantity} units of ${productId}`);
 
-			// ✅ Process purchase and return result
-			return await purchaseService.processPurchase(userId, productId, quantity);
+			// Process purchase and return result
+			return await PurchaseService.processPurchase(userId, productId, quantity);
 		});
 
-		console.log("✅ Purchase Queue is processing jobs...");
+		console.log("Purchase Queue is processing jobs...");
 	}
 }
 

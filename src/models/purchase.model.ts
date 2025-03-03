@@ -10,4 +10,6 @@ const PurchaseSchema = new Schema(
 	{ timestamps: true }
 );
 
-export default model("Purchase", PurchaseSchema);
+export const purchaseModel = model("Purchase", PurchaseSchema);
+
+export default purchaseModel;

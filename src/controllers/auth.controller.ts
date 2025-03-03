@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import authService from "../services/auth.service";
-import { NODE_ENV } from "../config/env";
+import { AuthService } from "../services";
 
 class AuthController {
 	public async signup(req: Request, res: Response) {
 		const { name, email, password } = req.body;
-		const result = await authService.signup(name, email, password);
+		const result = await AuthService.signup(name, email, password);
 		if (!result.success) return res.status(400).json({ message: result.message });
 
 		res.cookie("token", result.data?.accessToken, {
-			httpOnly: true, 
-			maxAge: 7 * 24 * 60 * 60 * 1000
+			httpOnly: true,
+			maxAge: 7 * 24 * 60 * 60 * 1000,
 		});
 
 		res.status(201).json({ message: result.message, data: result.data });
@@ -18,7 +17,7 @@ class AuthController {
 
 	public async login(req: Request, res: Response) {
 		const { email, password } = req.body;
-		const result = await authService.login(email, password);
+		const result = await AuthService.login(email, password);
 		if (!result.success) return res.status(400).json({ message: result.message });
 
 		res.cookie("token", result.token, {
